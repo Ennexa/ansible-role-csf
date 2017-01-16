@@ -1,5 +1,5 @@
 ---
-# Apple config values specified at a group/global level
+# Apply config values specified at a group/global level
 - name: apply global csf configs
   lineinfile: >
     dest="/etc/csf/csf.conf"
@@ -11,7 +11,7 @@
     - restart csf
     - restart lfd
 
-# Apple per server/host configs
+# Apply per server/host configs
 - name: apply host csf configs
   lineinfile: >
     dest="/etc/csf/csf.conf"

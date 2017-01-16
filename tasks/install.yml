@@ -68,6 +68,5 @@
 
 # Cleanup TEMP dir we created
 - name: cleanup csf files
-  file: >
-    path=/tmp/csf state=absent
+  file: path=/tmp/csf state=absent
   when: result|failed
