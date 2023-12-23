@@ -2,16 +2,16 @@
 # Tasks for CSF Configuration
 
 # Include CSF install
-- include: install.yml
+- import_tasks: install.yml
 
 # Include our allow includes
-- include: includes.yml
+- import_tasks: includes.yml
 
 # Include our configs
-- include: configs.yml
+- import_tasks: configs.yml
 
 # Whitelist Hosts
-- include: whitelist.yml
+- import_tasks: whitelist.yml
 
 # Whitelist DynDNS
-- include: dyndns.yml
+- import_tasks: dyndns.yml
