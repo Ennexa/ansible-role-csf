@@ -36,7 +36,7 @@
 
 # Extract tar.gz
 - name: extract csf files
-  unarchive: src=https://download.configserver.com/csf.tgz dest=/usr/src/ creates=/usr/src/csf/LICENSE.txt copy=no
+  unarchive: src=https://download.configserver.com/csf.tgz dest=/usr/src/ creates=/usr/src/csf/license.txt copy=no
 
 # Install CSF
 - name: install csf
