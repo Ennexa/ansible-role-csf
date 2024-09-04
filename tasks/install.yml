@@ -13,6 +13,10 @@
   package: name=ipset state=present
   when: "ipset|bool"
 
+- name: install package iptables [Debian]
+  package: name=iptables state=present
+  when: "ansible_os_family == 'Debian'"
+
 # Install perl GD Graph if desired
 - name: install package libgd-graph-perl [Debian]
   apt: name=libgd-graph-perl state=present
