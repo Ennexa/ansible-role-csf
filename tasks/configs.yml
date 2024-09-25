@@ -1,31 +1,19 @@
 ---
-# Apply config values specified at a group/global level
-- name: apply global csf configs
-  lineinfile: >
-    dest="/etc/csf/csf.conf"
-    regexp="^{{ item.name }} ="
-    line='{{ item.name }} = "{{ item.config }}"'
-  with_items: "{{ csf_global_conf|default([]) }}"
-  when: csf_global_conf is defined
-  notify:
-    - restart csf
-    - restart lfd
-
-# Apply per server/host configs
-- name: apply host csf configs
-  lineinfile: >
-    dest="/etc/csf/csf.conf"
-    regexp="^{{ item.name }} ="
-    line='{{ item.name }} = "{{ item.config }}"'
-  with_items: "{{ csf_conf|default([]) }}"
-  when: csf_conf is defined
+- name: apply csf configs
+  lineinfile:
+    dest: "/etc/csf/csf.conf"
+    regexp: "^{{ item.name }} ="
+    line: '{{ item.name }} = "{{ item.config }}"'
+  with_items: "{{ ((csf_global_conf | default([])) + (csf_conf | default([]))) |
+                  items2dict(key_name='name', value_name='config') |
+                  dict2items(key_name='name', value_name='config') }}"
   notify:
     - restart csf
     - restart lfd
 
 # Uncomment some blocklists
-- name: enable blocklists 
-  replace: 
+- name: enable blocklists
+  replace:
     dest: /etc/csf/csf.blocklists
     regexp: '^\#{{ item }}\|(\w+.*)?$'
     replace: '{{ item }}|\1'
@@ -45,7 +33,7 @@
   when: csf_allow is defined
   notify:
     - restart csf
-    
+
 # add ignored ip to csf.ignore
 - name: csf - adding allowed ip
   lineinfile: >
